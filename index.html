@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Noivado Jonathan & Alessandra</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #c9a24d;
+      margin-bottom: 5px;
+    }
+
+    .data {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      color: #c9a24d;
+      border-bottom: 1px solid #e6d8b5;
+      padding-bottom: 5px;
+      margin-top: 30px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      accent-color: #c9a24d;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Jonathan & Alessandra</h1>
+<div class="data">Noivado – 11/04/2026</div>
+
+<p style="text-align:center;">
+  Com carinho, preparamos esta lista de presentes para o nosso futuro lar 🤍
+</p>
+
+<div id="lista"></div>
+
+<script>
+  // 🔴 COLE AQUI A DATABASE URL DO FIREBASE
+  const firebaseConfig = {
+    databaseURL: "COLE_AQUI_SUA_DATABASE_URL"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  const presentes = {
+    "🍳 Cozinha": [
+      "Jogo de panelas",
+      "Panela de pressão 4,5 litros",
+      "Frigideira antiaderente",
+      "Conjunto de assadeiras",
+      "Faqueiro",
+      "Jogo de pratos",
+      "Jogo de copos",
+      "Jogo de xícaras",
+      "Potes herméticos",
+      "Tapete de cozinha"
+    ],
+    "⚡ Eletroportáteis": [
+      "Batedeira",
+      "Ferro de passar",
+      "Ventilador"
+    ],
+    "🛏️ Quarto e banho": [
+      "Jogo de lençol casal",
+      "Edredom",
+      "Travesseiros",
+      "Toalhas de banho",
+      "Toalhas de rosto",
+      "Tapete de banheiro",
+      "Cortina para quarto"
+    ],
+    "🧹 Limpeza e organização": [
+      "Kit de limpeza",
+      "Cesto de roupa",
+      "Organizador multiuso"
+    ],
+    "🏠 Casa em geral": [
+      "Tábua de passar",
+      "Cabides",
+      "Relógio de parede",
+      "Jogo americano",
+      "Porta-mantimentos",
+      "Jarra de água",
+      "Garrafa térmica"
+    ],
+    "🎁 Extras": [
+      "Conjunto de potes de vidro",
+      "Tapete para sala",
+      "Vale-presente (loja de casa)",
+      "Fronha",
+      "Manta",
+      "Toalha de mesa",
+      "Prato de sobremesa",
+      "Forma de bolo",
+      "Pirex"
+    ]
+  };
+
+  const listaDiv = document.getElementById("lista");
+
+  Object.keys(presentes).forEach(categoria => {
+    const catDiv = document.createElement("div");
+    catDiv.innerHTML = `<h2>${categoria}</h2>`;
+
+    presentes[categoria].forEach(item => {
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "item";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+
+      database.ref("presentes/" + item).on("value", snapshot => {
+        checkbox.checked = snapshot.val() === true;
+      });
+
+      checkbox.addEventListener("change", () => {
+        database.ref("presentes/" + item).set(checkbox.checked);
+      });
+
+      itemDiv.appendChild(checkbox);
+      itemDiv.appendChild(document.createTextNode(item));
+      catDiv.appendChild(itemDiv);
+    });
+
+    listaDiv.appendChild(catDiv);
+  });
+</script>
+
+</body>
+</html>
