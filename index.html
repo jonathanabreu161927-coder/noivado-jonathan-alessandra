@@ -26,6 +26,12 @@
     .data {
       text-align: center;
       font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    p.mensagem {
+      text-align: center;
+      font-size: 16px;
       margin-bottom: 25px;
     }
 
@@ -56,8 +62,8 @@
 <h1>Jonathan & Alessandra</h1>
 <div class="data">Noivado – 11/04/2026</div>
 
-<p style="text-align:center;">
-  Com carinho, preparamos esta lista de presentes para o nosso futuro lar 🤍
+<p class="mensagem">
+  Estamos comemorando nosso noivado e, se desejar nos presentear, preparamos uma lista pensando no nosso futuro lar 💕
 </p>
 
 <div id="lista"></div>
@@ -65,7 +71,7 @@
 <script>
   // 🔴 Configuração Firebase pronta
   const firebaseConfig = {
-    databaseURL: "https://noivado-jonathan-alessandra-default-rtdb.firebaseio.com"
+    databaseURL: "https://noivado-jonivado-jonathan-alessandra-default-rtdb.firebaseio.com"
   };
 
   firebase.initializeApp(firebaseConfig);
