@@ -1,8 +1,8 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Noivado Jonathan & Alessandra</title>
+  <title>Jonathan & Alessandra 💍</title>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -31,7 +31,6 @@
 
     p.mensagem {
       text-align: center;
-      font-size: 16px;
       margin-bottom: 25px;
     }
 
@@ -39,7 +38,7 @@
       color: #c9a24d;
       border-bottom: 1px solid #e6d8b5;
       padding-bottom: 5px;
-      margin-top: 30px;
+      margin-top: 20px;
     }
 
     .item {
@@ -59,9 +58,8 @@
 
 <body>
 
-<h1>Jonathan & Alessandra</h1>
+<h1>Jonathan & Alessandra 💍</h1>
 <div class="data">Noivado – 11/04/2026</div>
-
 <p class="mensagem">
   Estamos comemorando nosso noivado e, se desejar nos presentear, preparamos uma lista pensando no nosso futuro lar 💕
 </p>
@@ -69,9 +67,9 @@
 <div id="lista"></div>
 
 <script>
-  // 🔴 Configuração Firebase correta
+  // 🔴 Firebase Config
   const firebaseConfig = {
-    databaseURL: "https://noivado-jonivado-jonathan-alessandra-default-rtdb.firebaseio.com"
+    databaseURL: "https://noivado-jonathan-alessandra-default-rtdb.firebaseio.com/"
   };
 
   firebase.initializeApp(firebaseConfig);
@@ -144,12 +142,12 @@
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
 
-      // Ler valor atual do Firebase
+      // Puxa o estado do Firebase
       database.ref("presentes/" + item).on("value", snapshot => {
         checkbox.checked = snapshot.val() === true;
       });
 
-      // Atualizar Firebase quando marcar/desmarcar
+      // Atualiza o Firebase quando mudar
       checkbox.addEventListener("change", () => {
         database.ref("presentes/" + item).set(checkbox.checked);
       });
